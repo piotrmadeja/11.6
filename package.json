@@ -1,0 +1,47 @@
+{
+  "name": "learning-git-2",
+  "version": "1.0.0",
+  "description": "https://piotrmadeja.github.io/learning-git-2/",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm-run-all test:*",
+    "test:html": "globstar nu-html-checker *.html",
+    "init-project": "npm install && npm-run-all init:*",
+    "init:dirs": "mkdirp sass css vendor images js",
+    "init:files": "touch README.md index.html sass/style.scss js/script.js",
+    "init:gitignore": "curl https://raw.githubusercontent.com/github/gitignore/master/Node.gitignore -o .gitignore",
+    "build": "npm-run-all build:* test",
+    "build:clean": "rimraf css" ,
+    "build:sass": "node-sass --output-style compact -o css sass",
+    "build:autoprefixer": "autoprefixer-cli css/style.css",
+    "build-dev:sass": "node-sass --output-style expanded --source-map true -o css sass",
+    "watch": "npm-run-all build -p watch:*",
+    "watch:sassprefixer": "onchange sass -- npm-run-all -s watch:sass  watch:autoprefixer" ,
+    "watch:sass": "node-sass --output-style expanded --source-map true -o css sass" ,
+    "watch:autoprefixer": "autoprefixer-cli -o css/style.css css/style.css",
+    "watch:browsersync": "node_modules/.bin/browser-sync start --server --files 'css/style.css,index.html --browser firefox --no-inject-changes"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/piotrmadeja/learning-git-2.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/piotrmadeja/learning-git-2/issues"
+  },
+  "homepage": "https://github.com/piotrmadeja/learning-git-2#readme",
+  "devDependencies": {
+    "autoprefixer-cli": "^1.0.0",
+    "browser-sync": "^2.23.6",
+    "globstar": "^1.0.0",
+    "mkdirp": "^0.5.1",
+    "node-sass": "^4.7.2",
+    "npm-run-all": "^4.1.2",
+    "nu-html-checker": "^0.1.0",
+    "onchange": "^3.3.0",
+    "rimraf": "^2.6.2"
+  },
+  "dependencies": {}
+}
